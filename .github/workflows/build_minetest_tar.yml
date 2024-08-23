@@ -38,9 +38,14 @@ jobs:
       - name: Compile minetest
         run: |
           sudo apt install -y g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
-          wget https://github.com/minetest/minetest/archive/master.tar.gz
-          tar xf master.tar.gz
-          cd minetest-master
+          git clone --depth 1 -b stable-5 https://github.com/minetest/minetest.git
+          cd minetest
           ls
           cmake . -D{BUILD_CLIENT=0,{BUILD_SERVER,RUN_IN_PLACE,ENABLE_POSTGRESQL,ENABLE_PROMETHEUS}=1} && make -j$(nproc) package
           ls
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /home/runner/work/minetest_builder/minetest_builder/minetest-master/minetest-5.9.0-dev-linux.tar.gz
+
