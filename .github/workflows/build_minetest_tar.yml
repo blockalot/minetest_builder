@@ -25,6 +25,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Prometheus Build dependency
         run: |
+          sudo apt install curl
           cd /tmp
           git clone --recursive https://github.com/jupp0r/prometheus-cpp
           mkdir prometheus-cpp/build
