@@ -1,0 +1,45 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a set of commands using the runners shell
+      - name: Install Prometheus Build dependency
+        run: |
+          cd /tmp
+          git clone --recursive https://github.com/jupp0r/prometheus-cpp
+          mkdir prometheus-cpp/build
+          cd prometheus-cpp/build
+          cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=0
+          make -j$(nproc)
+          sudo make install
+
+      # Runs a set of commands using the runners shell
+      - name: Compile minetest
+        run: |
+          sudo apt install g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
+          wget https://github.com/minetest/minetest/archive/master.tar.gz
+          tar xf master.tar.gz
+          cd minetest-master
+          ls
+          cmake . -D{BUILD_CLIENT=0,{BUILD_SERVER,RUN_IN_PLACE,ENABLE_POSTGRESQL,ENABLE_PROMETHEUS}=1} && make -j$(nproc) package
+          ls
