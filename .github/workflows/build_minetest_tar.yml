@@ -25,7 +25,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install Prometheus Build dependency
         run: |
-          sudo apt install curl
+          sudo apt install curl libcurl4-openssl-dev -y
           cd /tmp
           git clone --recursive https://github.com/jupp0r/prometheus-cpp
           mkdir prometheus-cpp/build
@@ -37,7 +37,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Compile minetest
         run: |
-          sudo apt install g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
+          sudo apt install -y g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
           wget https://github.com/minetest/minetest/archive/master.tar.gz
           tar xf master.tar.gz
           cd minetest-master
