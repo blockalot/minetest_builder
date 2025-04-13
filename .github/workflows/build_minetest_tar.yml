@@ -47,5 +47,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: /home/runner/work/minetest_builder/minetest_builder/minetest/luanti-13_04-linux.tar.gz
+          files: /home/runner/work/minetest_builder/minetest_builder/minetest/luanti-5.12.0-dev-linux.tar.gz
           tag_name: 13_04_24
