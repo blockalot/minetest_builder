@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -38,7 +38,7 @@ jobs:
       - name: Compile minetest
         run: |
           sudo apt install -y g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
-          git clone --depth 1 -b stable-5 https://github.com/minetest/minetest.git
+          git clone --depth 1 -b master https://github.com/minetest/minetest.git
           cd minetest
           ls
           cmake . -D{BUILD_CLIENT=0,{BUILD_SERVER,RUN_IN_PLACE,ENABLE_POSTGRESQL,ENABLE_PROMETHEUS}=1} && make -j$(nproc) package
@@ -47,5 +47,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: /home/runner/work/minetest_builder/minetest_builder/minetest/luanti-5.11.0-linux.tar.gz
-          tag_name: v5.11.0
+          files: /home/runner/work/minetest_builder/minetest_builder/minetest/luanti-13_04-linux.tar.gz
+          tag_name: 13_04_24
