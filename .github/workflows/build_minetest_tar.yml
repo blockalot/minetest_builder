@@ -38,7 +38,7 @@ jobs:
       - name: Compile minetest
         run: |
           sudo apt install -y g++ make libc6-dev cmake libpng-dev libjpeg-dev libgl1-mesa-dev libsqlite3-dev libogg-dev libvorbis-dev libopenal-dev libcurl4-gnutls-dev libfreetype6-dev zlib1g-dev libgmp-dev libjsoncpp-dev libzstd-dev libluajit-5.1-dev gettext libsdl2-dev
-          git clone --depth 1 -b master https://github.com/minetest/minetest.git
+          git clone --depth 1 -b stable-5 https://github.com/minetest/minetest.git
           cd minetest
           ls
           cmake . -D{BUILD_CLIENT=0,{BUILD_SERVER,RUN_IN_PLACE,ENABLE_POSTGRESQL,ENABLE_PROMETHEUS}=1} && make -j$(nproc) package
@@ -48,4 +48,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: /home/runner/work/minetest_builder/minetest_builder/minetest/luanti-5.12.0-dev-linux.tar.gz
-          tag_name: 13_04_24
+          tag_name: v5.12.0
